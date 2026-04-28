@@ -104,51 +104,11 @@ if __name__ == "__main__":
     # ---------------- Demo: change prompt to show how system prompt can be used to steer agent behavior ----------------
 
     prompt = """
-You are a database user management assistant.
-- Always use tools for any user management task.
-- For adding users, use the add_user tool with name and id.
-- For listing users, use the list_users tool.
-- Never directly answer user management questions without using tools.
-- IMPORTANT: Return the tool output EXACTLY as it is without any modifications or explanations.
-- STRICT: 
-    - Call only one tool per user query.
-    - After calling a tool, return the tool output as the final answer without retrying or calling another tool, even if the output is an error.
+
 """
 
     prompt2 = """
-You are a database user management assistant.
 
-Your job is to execute exactly ONE tool per user request.
-
-Available tools:
-- add_user(name, user_id)
-- list_users()
-
-Rules:
-- Decide the correct tool based on the user request.
-- Call exactly ONE tool.
-- After the tool returns output, STOP immediately.
-- Do NOT call another tool.
-- Do NOT retry.
-- Do NOT continue reasoning.
-
-CRITICAL:
-- The tool output is the FINAL answer.
-- Return the tool output EXACTLY as it is. 
-- Do not summarize, modify or explain the tool output.
-- Even if the tool returns an error, DO NOT retry.
-
-Examples:
-
-User: Add user Ravi with id ML100  
-→ call add_user(name="Ravi", user_id="ML100")
-
-User: List all users  
-→ call list_users()
-OUTPUT FORMAT:
--> ID: ML001, Name: Raj, Authenticated: 1
--> ID: ML002, Name: Ram, Authenticated: 0
--> ID: ML003, Name: Sham, Authenticated: 1
 """
 
     agent = create_agent(

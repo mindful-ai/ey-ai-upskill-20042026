@@ -249,26 +249,7 @@ def route_after_validator(state: AgentState):
 
 def build_graph(llm):
     
-    graph = StateGraph(AgentState)
-
-    graph.add_node("planner", create_planner_node(llm))
-    graph.add_node("executor_single", executor_single)
-    graph.add_node("executor_parallel", executor_parallel)
-    graph.add_node("aggregator", aggregator_node)
-    graph.add_node("validator", create_validator_node(llm))
-    graph.add_node("retry", retry_node)
-
-    graph.set_entry_point("planner")
-    graph.add_conditional_edges("planner", route_after_planner)
-
-    graph.add_edge("executor_single", "validator")
-    graph.add_edge("executor_parallel", "aggregator")
-    graph.add_edge("aggregator", "validator")
-
-    graph.add_conditional_edges("validator", route_after_validator)
-    graph.add_edge("retry", "planner")
-
-    return graph.compile()
+    pass
 
 # ============================================================
 # MAIN
